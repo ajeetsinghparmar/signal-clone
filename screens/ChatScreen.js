@@ -1,10 +1,10 @@
 import React, {useLayoutEffect, useState} from 'react'
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, StatusBar, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Keyboard, StatusBar } from 'react-native'
 import {Avatar} from 'react-native-elements'
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 import {ScrollView, TextInput} from 'react-native-gesture-handler'
 import { db, auth } from '../firebase'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 
 const ChatScreen = ({ navigation, route }) => {
 
@@ -98,7 +98,11 @@ const ChatScreen = ({ navigation, route }) => {
                 <ScrollView contentContainerStyle={{ paddingTop: 15 }}>
                     {messages.map(({id, data}) => (
                         data.email === auth.currentUser.email ? (
-                            <View key={id} style={styles.receiver}>
+                            <TouchableOpacity 
+                                key={id}
+                                onLongPress={() => db.collection('chats').doc(route.params.id).collection('messages').doc(id).delete()} 
+                                activeOpacity={0.5}>
+                            <View  style={styles.receiver}>
                                 <Avatar 
                                     position="absolute"
                                     bottom={-15}
@@ -117,6 +121,7 @@ const ChatScreen = ({ navigation, route }) => {
                                 />
                                 <Text style={styles.receiverText}>{ data.message }</Text>
                             </View>
+                            </TouchableOpacity>
                         ) : (
                             <View key={id} style={styles.sender}>
                                 <Avatar 
@@ -149,7 +154,7 @@ const ChatScreen = ({ navigation, route }) => {
                         onSubmitEditing={sendMessage}
                         onChangeText={(text) => setInput(text)}
                     />
-                    <TouchableOpacity onPress={sendMessage} activeOpacity={0.5}>
+                    <TouchableOpacity disabled={!input} onPress={sendMessage} activeOpacity={0.5}>
                         <Ionicons name="send" size={24} color="#286BE6" />
                     </TouchableOpacity>
                 </View>

@@ -16,7 +16,11 @@ const CustomListItem = ({id, chatName, enterChat}) => {
 
     return (
 
-        <ListItem key={id} onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
+        <ListItem 
+            key={id} 
+            onPress={() => enterChat(id, chatName)} key={id} bottomDivider
+            onLongPress={() => db.collection('chats').doc(id).delete()}
+        >
             <Avatar
                 rounded
                 source={{
