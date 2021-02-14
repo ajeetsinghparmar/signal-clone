@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,6 +8,8 @@ import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen'
 import AddChatScreen from './screens/AddChatScreen'
 import ChatScreen from './screens/ChatScreen'
+import CameraScreen from './screens/CameraScreen';
+import CameraPreview from './screens/CameraPreviewScreen';
 
 const Stack = createStackNavigator()
 
@@ -37,17 +38,15 @@ export default function App() {
         <Stack.Screen 
         name="Chat" 
         component={ChatScreen} />
+        <Stack.Screen 
+        name="Camera" 
+        component={CameraScreen} />
+        <Stack.Screen 
+        name="CameraPreview" 
+        component={CameraPreview} />
       </Stack.Navigator>
 
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -4,6 +4,7 @@ import {Avatar} from 'react-native-elements'
 import CustomListItem from '../components/CustomListItem'
 import { db, auth } from '../firebase'
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
+import { Name } from '../config'
 
 const HomeScreen = ({ navigation }) => {
     const [chats, setChats] = useState([]);
@@ -49,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
                     width: 80,
                     marginRight: 20,
                     }}>
-                    <TouchableOpacity activeOpacity={0.5}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Camera')} activeOpacity={0.5}>
                         <AntDesign name='camerao' size={24} color='black' />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('AddChat')} activeOpacity={0.5}>
